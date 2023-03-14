@@ -27,7 +27,7 @@ public class MeuPrograma extends JFrame {
         scrollPane.setPreferredSize(getMaximumSize()); // Define o tamanho do JScrollPane
 
         // Define um layout de grade com uma linha e duas colunas
-        setLayout(new GridLayout(2, 1));
+        setLayout(new FlowLayout(1));
 
         // Define o tamanho da janela
         setSize(500, 500);
