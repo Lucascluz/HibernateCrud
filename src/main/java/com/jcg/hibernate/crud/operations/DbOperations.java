@@ -36,7 +36,6 @@ public class DbOperations {
 	// Method 1: This Method Used To Create A New Student Record In The Database
 	// Table
 	public static void createRecord(String nome, String endereco, String telefone) {
-		int count = 0;
 		Contato contatoObj = null;
 		try {
 			// Getting Session Object From SessionFactory
@@ -44,15 +43,15 @@ public class DbOperations {
 			// Getting Transaction Object From Session Object
 			sessionObj.beginTransaction();
 
-				contatoObj = new Contato();
-				contatoObj.setEndereco(endereco);
-				contatoObj.setNome(nome);
-				contatoObj.setTelefone(telefone);
-				sessionObj.save(contatoObj);
+			contatoObj = new Contato();
+			contatoObj.setEndereco(endereco);
+			contatoObj.setNome(nome);
+			contatoObj.setTelefone(telefone);
+			sessionObj.save(contatoObj);
 
 			// Committing The Transactions To The Database
 			sessionObj.getTransaction().commit();
-			logger.info("\nSuccessfully Created '" + count + "' Records In The Database!\n");
+			logger.info("\nSuccessfully Created the Record!\n");
 		} catch (Exception sqlException) {
 			if (null != sessionObj && null != sessionObj.getTransaction()) {
 				logger.info("\n.......Transaction Is Being Rolled Back.......\n");
@@ -142,7 +141,7 @@ public class DbOperations {
 				logger.info("\n.......Transaction Is Being Rolled Back.......\n");
 				sessionObj.getTransaction().rollback();
 			}
-			//sqlException.printStackTrace();
+			// sqlException.printStackTrace();
 		} finally {
 			if (sessionObj != null) {
 				sessionObj.close();
@@ -161,7 +160,7 @@ public class DbOperations {
 
 			findContatoObj = (Contato) sessionObj.load(Contato.class, id);
 		} catch (Exception sqlException) {
-			if (null != sessionObj.getTransaction()) {
+			if (null != sessionObj && null != sessionObj.getTransaction()) {
 				logger.info("\n.......Transaction Is Being Rolled Back.......\n");
 				sessionObj.getTransaction().rollback();
 			}
@@ -185,7 +184,7 @@ public class DbOperations {
 			sessionObj.getTransaction().commit();
 			logger.info("\nSuccessfully Deleted All Records From The Database Table!\n");
 		} catch (Exception sqlException) {
-			if (null != sessionObj.getTransaction()) {
+			if (null != sessionObj && null != sessionObj.getTransaction()) {
 				logger.info("\n.......Transaction Is Being Rolled Back.......\n");
 				sessionObj.getTransaction().rollback();
 			}
